@@ -1,111 +1,124 @@
 #!/usr/bin/env python3
 """Build poster.html for Saturday 21 November 2026: the world in one page.
 
-V5 layout, rebuilt on the formula the current leaders use: the date itself
-is the masthead, every art panel carries a big red banner label with the
-story's own hard number, cards run one or two lines of body, and the rest
-of the day continues as a numbered brief list beside a small map. Every
-story was reported on Saturday 21 November 2026 in at least one time zone;
-unconfirmed claims are labelled as claims. Region counts are computed from
-the story data, so the region bar always matches the stories printed.
+V6 layout, rebuilt on the consensus formula of this edition's top ten:
+the date itself is the masthead, a six-number strip and a region bar
+computed from the stories printed, three leads and ten features drawn as
+banner-labelled vector scenes, every card carrying its source and a
+checked-status tag (CONFIRMED, OFFICIAL, REPORTED, CLAIM) with the legend
+in the footer, the rest of the day as a numbered brief list beside a
+small map, and a DATE CHECK box that names the Thursday and Friday news
+left out. Every story was reported on Saturday 21 November 2026 in at
+least one time zone.
 """
 import pathlib
 
 HERE = pathlib.Path(__file__).parent
 
 # ---------------------------------------------------------------- stories
-# Cards: n (map pin), place, cat, head, body, region code.
+# Cards: n (map pin), place, cat, head, body, region, src, tag.
 LEADS = [
-    dict(n=1, place="ANTALYA, TURKEY", cat="CLIMATE", region="ME",
+    dict(n=1, place="ANTALYA, TURKEY", cat="CLIMATE", region="AS",
          head="Climate summit runs into Saturday with no deal",
          body="Nearly 200 nations missed Friday's close as a draft silent "
               "on fossil fuels split the hall. A third text is promised; "
               "campaigners call the draft toothless.",
-         src="DEADLINE MISSED · TALKS GO ON"),
+         src="(AP, AFP)", tag="CONFIRMED"),
     dict(n=2, place="RIYADH, SAUDI ARABIA", cat="WAR", region="ME",
          head="Three Houthi missiles shot down over Riyadh",
          body="Coalition air defences destroyed three ballistic missiles "
               "over Riyadh after 2am and a drone headed south; two more "
               "missiles were downed over Jazan on Friday evening. No "
               "casualties reported.",
-         src="COALITION COUNT · VIA REUTERS"),
-    dict(n=3, place="JUNIN, PERU", cat="EARTHQUAKE", region="SA",
+         src="(Reuters, AFP)", tag="OFFICIAL"),
+    dict(n=3, place="JUNIN, PERU", cat="EARTHQUAKE", region="AM",
          head="Magnitude 6.7 earthquake shakes central Peru",
          body="The quake struck 9 km from Carhuamayo, 108 km deep, at "
               "00:09 UTC and was felt in Lima. Indeci counts eight injured "
               "and 128 homes affected; the Navy ruled out a tsunami.",
-         src="USGS · IGP · INDECI"),
+         src="(USGS, IGP)", tag="OFFICIAL"),
 ]
 FEATURES = [
     dict(n=4, place="KYIV, UKRAINE", cat="WAR", region="EU",
-         head="Ukraine hits the Kerch Bridge a third time in four days",
-         body="The strike came hours after the night barrage on Kyiv."),
+         head="Zelensky: the Crimea bridge 'will not stay'",
+         body="He warns of more double-tap strikes ahead.",
+         src="(NBC)", tag="REPORTED"),
     dict(n=5, place="STRAIT OF HORMUZ", cat="WAR", region="ME",
          head="Iran says it shot down a US drone over Hormuz",
-         body="Tehran claims its 58th MQ-9; Washington has not confirmed it."),
-    dict(n=6, place="NEW YORK, US", cat="MARKETS", region="NA",
-         head="AI rout tips Wall Street into correction",
-         body="Stocks fell 3.7%, the week Anthropic debuted at $2 trillion."),
-    dict(n=7, place="THE HAGUE", cat="WORLD COURT", region="EU",
-         head="World court: Myanmar committed genocide",
-         body="The court found the state responsible for genocide against "
-              "the Rohingya; Myanmar rejects the ruling."),
-    dict(n=8, place="SHENZHEN", cat="DIPLOMACY", region="AS",
-         head="A peace declaration that skips Ukraine",
-         body="Trump, Xi and Putin's text says nothing about Ukraine; "
-              "Trump then told Europe to defund Kyiv."),
-    dict(n=9, place="GAZA", cat="WAR", region="ME",
-         head="Israeli strikes kill Palestinians despite the peace deal",
-         body="A drone strike on Salah al-Din Street killed one man."),
-    dict(n=10, place="YONGBYON", cat="NUCLEAR", region="AS",
-         head="North Korea is expanding its uranium plant",
-         body="The UN watchdog says new buildings are rising at Yongbyon."),
-    dict(n=11, place="BERLIN", cat="PROTESTS", region="EU",
-         head="Gen Z protests spread across 25 European countries",
-         body="Youth-led demonstrations rolled across the continent."),
-    dict(n=12, place="NUUK", cat="DIPLOMACY", region="NA",
-         head="Denmark ratifies the US Greenland security deal 109-0",
-         body="The unanimous vote allows two new American bases."),
-    dict(n=13, place="LONDON, UK", cat="MEDICINE", region="EU",
-         head="Pill makes pancreatic tumours vanish in 1 in 12 patients",
-         body="Scans found no detectable cancer in one in 12 on the trial."),
+         body="Tehran claims its 58th MQ-9; Washington has not confirmed it.",
+         src="(IRIB)", tag="CLAIM"),
+    dict(n=6, place="TEHRAN, IRAN", cat="DIPLOMACY", region="AS",
+         head="Iran: uranium stock stays in the country",
+         body="The minister still seeks a 'fair solution' to the standoff.",
+         src="(Times of Israel)", tag="OFFICIAL"),
+    dict(n=7, place="WASHINGTON, US", cat="TECH", region="AM",
+         head="Trump vows tax on data centres abroad",
+         body="'Tremendous' penalty promised; no details yet.",
+         src="(ABC)", tag="REPORTED"),
+    dict(n=8, place="BEIJING, CHINA", cat="DIPLOMACY", region="AS",
+         head="China tells Japan to 'correct' its Taiwan words",
+         body="Tokyo says its stance is unchanged.",
+         src="(Ministry, AFP)", tag="OFFICIAL"),
+    dict(n=9, place="DAVAO, PHILIPPINES", cat="AVIATION", region="AS",
+         head="Jet lands safely after an engine fire alert",
+         body="The Air Niugini 767 diverted after midnight; all safe.",
+         src="(Airline, AP)", tag="OFFICIAL"),
+    dict(n=10, place="CANBERRA, AUSTRALIA", cat="DIPLOMACY", region="OC",
+         head="Australia and China agree to AI talks",
+         body="Albanese wraps up an 11-day trip.",
+         src="(ABC)", tag="OFFICIAL"),
+    dict(n=11, place="WORLD", cat="MARKETS", region="GL",
+         head="Bitcoin slips below $59,000",
+         body="Down 3.9% in a day; ether changes hands at $1,625.",
+         src="(CoinGecko)", tag="CONFIRMED"),
+    dict(n=12, place="LAS VEGAS, US", cat="F1", region="AM",
+         head="Russell fastest in Las Vegas practice",
+         body="1:34.041 in a damp, messy final session.",
+         src="(Formula 1)", tag="OFFICIAL"),
+    dict(n=13, place="WELLINGTON, NZ", cat="CRICKET", region="OC",
+         head="Rahul century puts India on top",
+         body="India 344 for 2 at tea, replying to 368.",
+         src="(AFP)", tag="OFFICIAL"),
 ]
 # Briefs continue the numbering, 14 to 35: (place, region, text)
 BRIEFS = [
-    ("CARACAS, VENEZUELA", "SA", "The US signed a new military deal, ten months after removing Maduro."),
-    ("DHAKA, BANGLADESH", "AS", "Violence flared ahead of ex-PM Sheikh Hasina's planned return."),
-    ("MADRID, SPAIN", "EU", "Spain heads to an election on 29 November, conservatives gaining."),
-    ("PORT-AU-PRINCE, HAITI", "NA", "Salvadoran troops in Haiti lost soldiers to explosives."),
-    ("LOS ANGELES, US", "NA", "A man was convicted of starting the deadly Palisades fire."),
-    ("TALLINN, ESTONIA", "EU", "Estonia will close its border crossings with Russia."),
-    ("ULAANBAATAR, MONGOLIA", "AS", "Mongolia's president resigned; elections follow within four months."),
-    ("SANAA, YEMEN", "ME", "The UN counts about 257,000 displaced across Yemen since August."),
-    ("WASHINGTON, US", "NA", "The FBI's criminal database was reportedly hacked amid US outages."),
-    ("CALIFORNIA, US", "NA", "14 charged over a train cargo theft ring accused of stealing $22.5M."),
-    ("RIYADH, SAUDI ARABIA", "ME", "Saudi Arabia downed a Houthi missile a day after the Riyadh tower hit."),
-    ("DAMASCUS, SYRIA", "ME", "Syria captured a former general accused of a 2014 massacre."),
-    ("BOGOTA, COLOMBIA", "SA", "A nationwide work stoppage shut roads amid protests."),
-    ("UNITED NATIONS", "WO", "The UN cut its food aid target despite a looming starvation threat."),
-    ("GENEVA, SWITZERLAND", "EU", "UN talks on lethal autonomous weapons fell short of binding rules."),
-    ("COPENHAGEN, DENMARK", "EU", "Denmark says Russia plotted to kill a US-Ukrainian artist."),
-    ("GEORGIA, US", "NA", "A man was arrested for sending $26,000 to Islamic State linked people."),
-    ("BRASILIA, BRAZIL", "SA", "Students turned scorched fish bones into a clean water filter."),
-    ("FRANKFURT, GERMANY", "EU", "Lufthansa plans 1,000 job cuts at Frankfurt and Munich airports."),
-    ("JEDDAH, SAUDI ARABIA", "ME", "Houthis threaten Red Sea ports; airlines warned Saudi airspace is unsafe."),
-    ("LIMA, PERU", "SA", "Peru's Navy ruled out any tsunami on the coast after the Junin quake."),
-    ("CARHUAMAYO, PERU", "SA", "The mayor of the town nearest the epicentre reported no victims there."),
+    ("KRYVYI RIH, UKRAINE", "EU", "The double-tap strike's toll rises to 2 dead and 42 injured. (Kyiv Independent)"),
+    ("COPENHAGEN, DENMARK", "EU", "A Russian attache is expelled over an alleged plot. (Al Jazeera)"),
+    ("ANTALYA, TURKEY", "AS", "The EU warns COP31 risks becoming a 'fossil summit'. (AFP)"),
+    ("ANTALYA, TURKEY", "AS", "Panama threatens to block the climate text. (Al Jazeera)"),
+    ("WARSAW, POLAND", "EU", "NATO's Rutte visits after the missile incursion. (Reuters)"),
+    ("SANAA, YEMEN", "ME", "Houthis threaten Jeddah and the Red Sea ports. (Al Jazeera)"),
+    ("WASHINGTON, US", "AM", "Vance says the Iran strikes were Trump's call. (Reuters)"),
+    ("WASHINGTON, US", "AM", "A lawmaker threatens SpaceX's funding. (CNN)"),
+    ("TEXAS, US", "AM", "An execution of a man of 70 takes 63 minutes. (ABC)"),
+    ("LOS ANGELES, US", "AM", "A jury convicts the man who started the Palisades fire. (ABC)"),
+    ("MISSOURI, US", "AM", "A judge approves the $7.25bn Roundup settlement. (AFP)"),
+    ("VANCOUVER, CANADA", "AM", "Canada rests its defence in a youth climate trial. (AFP)"),
+    ("PYONGYANG, NORTH KOREA", "AS", "Kim tours factories; no Trump meeting follows. (AFP)"),
+    ("SEJONG, SOUTH KOREA", "AS", "A freight train derails; no one is hurt. (Korea Herald)"),
+    ("TAIPEI, TAIWAN", "AS", "A budget and a cash payout are passed. (Taipei Times)"),
+    ("NEW DELHI, INDIA", "AS", "A Pakistani minister joins the SCO forum in India. (Dawn)"),
+    ("GENEVA, SWITZERLAND", "EU", "'Killer robot' talks end with a 2028 aim. (Reuters)"),
+    ("EASTERN INDIA", "AS", "Rain alerts as the remnants of Akvan move inland. (ETV)"),
+    ("NAYPYIDAW, MYANMAR", "AS", "Myanmar calls the ICJ ruling unfair; rights groups urge sanctions. (AP)"),
+    ("PORT LOUIS, MAURITIUS", "AF", "An African rating agency opens talks with 15 states. (Al Jazeera)"),
+    ("MELBOURNE, AUSTRALIA", "OC", "Cummins keeps the Australian captaincy. (ABC)"),
+    ("LAS VEGAS, US", "AM", "Verstappen is sent to the stewards after contact. (Autosport)"),
 ]
 NUMS = [
-    ("DAY 13", "of a COP31 summit due to close on day 12"),
-    ("3", "ballistic missiles destroyed over Riyadh"),
+    ("13", "days COP31 has run, a day past its close"),
+    ("3", "ballistic missiles shot down over Riyadh"),
     ("6.7", "magnitude of the quake in Peru's Andes"),
-    ("$55,130", "Bitcoin's Saturday low, worst since 2024"),
-    ("109-0", "Denmark's vote for the Greenland deal"),
-    ("1 IN 12", "patients whose tumours vanished"),
+    ("146", "people safe after the Davao landing"),
+    ("$58,983", "Bitcoin early Saturday, down 3.9% in a day"),
+    ("124*", "Rahul's score at tea in Wellington"),
 ]
-REGIONS = [("EU", "Europe", "#33506e"), ("ME", "Middle East", "#b3312a"),
-           ("AS", "Asia", "#8c6d1f"), ("NA", "N America", "#2e7d5b"),
-           ("SA", "S America", "#7a4a8c"), ("WO", "World", "#555f6a")]
+REGIONS = [("EU", "Europe", "#33506e"), ("AS", "Asia", "#a03d2a"),
+           ("ME", "Middle East", "#8c6d1f"), ("AF", "Africa", "#2e7d5b"),
+           ("AM", "Americas", "#5b84a3"), ("OC", "Oceania", "#7a4a8c"),
+           ("GL", "Global", "#555f6a")]
+TAG_COLORS = {"CONFIRMED": "#1f7a8c", "OFFICIAL": "#2e7d5b",
+              "REPORTED": "#c77400", "CLAIM": "#b3312a"}
 
 # ------------------------------------------------------------------- arts
 # Every panel: a flat scene, a big red banner label with the story's own
@@ -116,14 +129,14 @@ def banner(label, bg, shapes, chip, h=96, fs=17):
             f'<rect x="0" y="0" width="{16 + len(label) * fs * 0.72:.0f}" height="26" fill="#b3312a"/>'
             f'<text x="8" y="19" font-family="Arial, sans-serif" font-size="{fs}" font-weight="800" fill="#ffffff">{label}</text>'
             f'<rect x="0" y="{h - 15}" width="{12 + len(chip) * 6.0:.0f}" height="15" fill="#14202b"/>'
-            f'<text x="5" y="{h - 4}" font-size="8.5" font-weight="700" fill="#ffffff">{chip}</text></svg>')
+            f'<text x="5" y="{h - 4}" font-family="Arial, sans-serif" font-size="8.5" font-weight="700" fill="#ffffff">{chip}</text></svg>')
 
 def art_cop31(h):
     return banner("COP31: OVERTIME", "#dcebe2",
         '<circle cx="70" cy="58" r="21" fill="#7fb069"/><path d="M52 50 q18 -12 36 0 q-6 16 -18 20 q-12 -4 -18 -20" fill="#5b8c5a"/>'
         '<rect x="128" y="36" width="10" height="34" rx="5" fill="#e8e3d5" stroke="#8c2f26" stroke-width="2"/><circle cx="133" cy="74" r="8" fill="#b3312a"/>'
         '<circle cx="196" cy="56" r="19" fill="none" stroke="#33506e" stroke-width="3"/><path d="M196 44 v12 l9 6" stroke="#33506e" stroke-width="3" fill="none"/>'
-        '<text x="238" y="62" font-size="15" font-weight="800" fill="#8c4a12">DAY 13</text>',
+        '<text x="238" y="62" font-family="Arial, sans-serif" font-size="15" font-weight="800" fill="#8c4a12">DAY 13</text>',
         "NO DEAL · DAY 13", h)
 
 def art_saudi(h):
@@ -141,11 +154,11 @@ def art_peru(h):
         "00:09 UTC · 108 KM DEEP", h)
 
 def art_bridge(h):
-    return banner("KYIV: THE BRIDGE", "#16283d",
+    return banner("KYIV: WARNING", "#16283d",
         '<path d="M10 52 Q150 26 290 52" stroke="#7fa6c9" stroke-width="3" fill="none"/>'
         '<path d="M60 44 L60 60 M150 38 L150 60 M240 44 L240 60" stroke="#7fa6c9" stroke-width="2.6"/>'
         '<circle cx="212" cy="42" r="5" fill="#ff8a3c"/>',
-        "3RD HIT IN 4 DAYS", h, 13)
+        "MORE STRIKES WARNED", h, 13)
 
 def art_hormuz(h):
     return banner("HORMUZ: DRONE", "#bcd6e4",
@@ -153,59 +166,67 @@ def art_hormuz(h):
         '<path d="M238 30 l16 6 -16 6 -4 -6z" fill="#14202b"/><circle cx="242" cy="48" r="2.6" fill="#b3312a"/>',
         "IRAN'S CLAIM · UNCONFIRMED", h, 13)
 
-def art_rout(h):
-    return banner("AI ROUT: -3.7%", "#22161a",
-        '<path d="M16 66 L70 58 L118 62 L168 74 L220 80 L284 90" stroke="#e5484d" stroke-width="3" fill="none"/>'
-        '<text x="164" y="52" font-family="Arial, sans-serif" font-size="11" font-weight="800" fill="#7be3a8">$2 TRILLION DEBUT</text>',
-        "S&P AND DOW IN CORRECTION", h, 13)
+def art_uranium(h):
+    return banner("IRAN: URANIUM", "#f3e5cf",
+        '<ellipse cx="90" cy="48" rx="42" ry="14" fill="none" stroke="#8c6d1f" stroke-width="2.6"/>'
+        '<ellipse cx="90" cy="48" rx="42" ry="14" fill="none" stroke="#8c6d1f" stroke-width="2.6" transform="rotate(60 90 48)"/>'
+        '<ellipse cx="90" cy="48" rx="42" ry="14" fill="none" stroke="#8c6d1f" stroke-width="2.6" transform="rotate(120 90 48)"/>'
+        '<circle cx="90" cy="48" r="8" fill="#b3312a"/>'
+        '<text x="160" y="54" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#7a5a10">STOCK STAYS HOME</text>',
+        "MINISTER: 'FAIR SOLUTION'", h, 13)
 
-def art_icj(h):
-    cols = "".join(f'<rect x="{52+i*30}" y="40" width="11" height="26" fill="#5b7186"/>' for i in range(6))
-    return banner("MYANMAR: GENOCIDE", "#e8edf2",
-        f'<path d="M40 40 L140 24 L240 40 Z" fill="#33506e"/><rect x="40" y="66" width="200" height="5" fill="#33506e"/>{cols}',
-        "WORLD COURT RULING", h, 13)
+def art_trump(h):
+    return banner("TRUMP: AI TAX", "#e8edf2",
+        '<text x="52" y="64" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#33506e">%</text>'
+        '<path d="M150 34 h110 M150 46 h110 M150 58 h74" stroke="#b3312a" stroke-width="5"/>',
+        "'TREMENDOUS' PENALTY", h, 13)
 
-def art_peace(h):
-    return banner("PEACE TEXT", "#f3e5cf",
-        '<rect x="30" y="34" width="52" height="26" fill="#3c3b6e"/><rect x="116" y="34" width="52" height="26" fill="#de2910"/><circle cx="129" cy="43" r="5" fill="#ffde00"/>'
-        '<rect x="202" y="34" width="52" height="26" fill="#2a4d9b"/><rect x="202" y="42" width="52" height="9" fill="#ffffff"/><rect x="202" y="51" width="52" height="9" fill="#d52b1e"/>',
-        "SILENT ON UKRAINE", h, 13)
+def art_chinajapan(h):
+    return banner("CHINA-JAPAN", "#f6ecd9",
+        '<rect x="36" y="32" width="58" height="34" fill="#de2910"/><circle cx="52" cy="44" r="5" fill="#ffde00"/><circle cx="62" cy="40" r="2" fill="#ffde00"/><circle cx="65" cy="47" r="2" fill="#ffde00"/>'
+        '<rect x="130" y="32" width="58" height="34" fill="#ffffff" stroke="#999" stroke-width="1.4"/><circle cx="159" cy="49" r="9" fill="#bc002d"/>'
+        '<path d="M212 49 h52 M252 40 l12 9 -12 9" stroke="#33506e" stroke-width="3.4" fill="none"/>',
+        "TOKYO: STANCE UNCHANGED", h, 13)
 
-def art_gaza(h):
-    return banner("GAZA: STRIKES", "#d9d3c3",
-        '<rect x="30" y="42" width="26" height="30" fill="#8a8378"/><rect x="66" y="34" width="22" height="38" fill="#6f6a5e"/><rect x="98" y="46" width="30" height="26" fill="#8a8378"/>'
-        '<path d="M210 34 q10 14 2 26" stroke="#555" stroke-width="3" fill="none"/><circle cx="212" cy="66" r="4" fill="#b3312a"/>',
-        "DESPITE THE PEACE DEAL", h, 13)
+def art_davao(h):
+    return banner("DAVAO: 146 SAFE", "#dcebf2",
+        '<path d="M20 52 L120 44 L210 30 Q236 28 244 36 L246 42 L150 52 L196 62 L188 68 L110 58 L60 62 Z" fill="#33506e"/>'
+        '<circle cx="70" cy="50" r="2.4" fill="#fdfaf1"/><circle cx="86" cy="49" r="2.4" fill="#fdfaf1"/><circle cx="102" cy="48" r="2.4" fill="#fdfaf1"/><circle cx="118" cy="47" r="2.4" fill="#fdfaf1"/>'
+        '<path d="M20 74 h260" stroke="#2e7d5b" stroke-width="2.6"/>',
+        "ALL 146 ABOARD SAFE", h, 13)
 
-def art_yongbyon(h):
-    return banner("YONGBYON GROWS", "#dfe5da",
-        '<rect x="120" y="30" width="14" height="38" fill="#7a6a4a"/><path d="M112 30 h30 l-4 -10 h-22z" fill="#555f6a"/>'
-        '<rect x="30" y="52" width="60" height="16" fill="#a8b39a"/><rect x="196" y="48" width="70" height="20" fill="#a8b39a"/>'
-        '<path d="M0 72 h300" stroke="#555f6a" stroke-width="2" stroke-dasharray="6 4"/>',
-        "UN WATCHDOG REPORT", h, 13)
+def art_canberra(h):
+    return banner("CANBERRA: AI", "#e9f4ee",
+        '<path d="M34 32 h92 v24 h-56 l-14 12 v-12 h-22z" fill="#2e7d5b"/>'
+        '<path d="M168 36 h92 v24 h-22 v12 l-14 -12 h-56z" fill="#b3312a"/>'
+        '<circle cx="58" cy="44" r="3" fill="#fff"/><circle cx="74" cy="44" r="3" fill="#fff"/><circle cx="90" cy="44" r="3" fill="#fff"/>',
+        "ALBANESE ENDS 11-DAY TRIP", h, 13)
 
-def art_genz(h):
-    heads = "".join(f'<circle cx="{40+i*26}" cy="58" r="7" fill="#33506e"/>' for i in range(9))
-    signs = '<rect x="70" y="30" width="34" height="16" fill="#fdfaf1" stroke="#b3312a" stroke-width="1.6"/><rect x="188" y="28" width="34" height="16" fill="#fdfaf1" stroke="#33506e" stroke-width="1.6"/>'
-    return banner("GEN Z: 25 COUNTRIES", "#f0e6d2", heads + signs,
-        "EUROPE MARCHES", h, 13)
+def art_bitcoin(h):
+    return banner("BITCOIN: $58,983", "#22161a",
+        '<circle cx="58" cy="48" r="17" fill="#f7931a"/><text x="58" y="56" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="800" fill="#fff">B</text>'
+        '<path d="M100 36 L140 44 L176 40 L214 56 L262 62" stroke="#e5484d" stroke-width="3" fill="none"/>'
+        '<text x="196" y="34" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#e5484d">-3.9%</text>',
+        "DOWN 3.9% IN A DAY", h, 13)
 
-def art_greenland(h):
-    return banner("GREENLAND: 109-0", "#dcebf2",
-        '<path d="M0 74 L60 52 L120 68 L190 46 L300 66 L300 96 L0 96 Z" fill="#fdfefe"/>'
-        '<rect x="140" y="30" width="4" height="30" fill="#7a6a4a"/><path d="M144 30 h26 l-6 6 6 6 h-26z" fill="#2a4d9b"/>'
-        '<rect x="196" y="34" width="4" height="26" fill="#7a6a4a"/><path d="M200 34 h24 l-5 5 5 5 h-24z" fill="#b3312a"/>',
-        "US SECURITY DEAL SIGNED", h, 13)
+def art_f1(h):
+    return banner("RUSSELL: P1", "#e8edf2",
+        '<path d="M28 56 L66 50 L96 38 L150 36 L176 48 L232 50 L244 56 L232 62 L40 62 Z" fill="#14202b"/>'
+        '<circle cx="76" cy="62" r="8" fill="#333" stroke="#999" stroke-width="2"/><circle cx="204" cy="62" r="8" fill="#333" stroke="#999" stroke-width="2"/>'
+        '<path d="M252 30 h34 v20 h-34z" fill="#fff" stroke="#14202b" stroke-width="1.6"/><path d="M252 40 h34 M261 30 v20 M270 30 v20 M278 30 v20" stroke="#14202b" stroke-width="1.4"/>',
+        "1:34.041 · DAMP SESSION", h, 13)
 
-def art_pill(h):
-    return banner("CANCER PILL", "#e9f4ee",
-        '<g transform="rotate(-24 70 52)"><rect x="30" y="38" width="80" height="28" rx="14" fill="#2e7d5b"/><rect x="70" y="38" width="40" height="28" rx="14" fill="#f2f2f2" stroke="#2e7d5b" stroke-width="2"/></g>'
-        '<text x="148" y="50" font-size="17" font-weight="800" fill="#1d5c40">1 IN 12</text>',
-        "NO TUMOUR FOUND ON SCANS", h, 13)
+def art_rahul(h):
+    return banner("RAHUL: 124*", "#eef3e4",
+        '<g transform="rotate(24 66 46)"><rect x="58" y="28" width="15" height="38" rx="4" fill="#c9a15a" stroke="#7a5a10" stroke-width="1.6"/></g>'
+        '<circle cx="120" cy="56" r="8" fill="#b3312a"/>'
+        '<text x="160" y="58" font-family="Arial, sans-serif" font-size="19" font-weight="800" fill="#1d5c40">124 NOT OUT</text>',
+        "INDIA 344 FOR 2 AT TEA", h, 13)
 
 LEAD_ARTS = {1: art_cop31, 2: art_saudi, 3: art_peru}
-FEAT_ARTS = {4: art_bridge, 5: art_hormuz, 6: art_rout, 7: art_icj, 8: art_peace,
-             9: art_gaza, 10: art_yongbyon, 11: art_genz, 12: art_greenland, 13: art_pill}
+FEAT_ARTS = {4: art_bridge, 5: art_hormuz, 6: art_uranium, 7: art_trump,
+             8: art_chinajapan, 9: art_davao, 10: art_canberra, 11: art_bitcoin,
+             12: art_f1, 13: art_rahul}
 
 # -------------------------------------------------------------------- css
 CSS = """
@@ -213,8 +234,8 @@ CSS = """
 body { width:1024px; height:1024px; overflow:hidden; background:#f7f1e3;
   font-family: Georgia, 'Times New Roman', serif; color:#14202b; padding:10px 18px 6px; }
 .kicker { display:flex; justify-content:space-between; font-family: Arial, sans-serif;
-  font-size:10.5px; font-weight:700; letter-spacing:2.2px; color:#8c2f26;
-  border-bottom:2.5px solid #14202b; padding-bottom:4px; }
+  font-size:10.5px; font-weight:700; letter-spacing:2.2px; color:#ffffff;
+  background:#b3312a; padding:5px 8px; }
 h1 { text-align:center; font-size:46px; letter-spacing:0.5px; line-height:1.02; margin-top:4px; }
 .subline { text-align:center; font-style:italic; font-size:14.5px; margin-top:3px; color:#33506e; }
 .nums { display:flex; gap:0; margin-top:8px; border-top:1px solid #b9a888; border-bottom:1px solid #b9a888; }
@@ -223,13 +244,12 @@ h1 { text-align:center; font-size:46px; letter-spacing:0.5px; line-height:1.02; 
 .num b { font-size:21px; display:block; line-height:1.05; }
 .num span { font-size:8.8px; font-family: Arial, sans-serif; line-height:1.15; display:block; }
 .regionbar { display:flex; margin-top:6px; font-family: Arial, sans-serif; }
-.regionbar div { color:#fff; font-size:9px; overflow:hidden; white-space:nowrap; font-weight:700; text-align:center; padding:3px 0; }
+.regionbar div { color:#fff; font-size:7.6px; letter-spacing:0; font-weight:700; text-align:center; padding:3px 0; overflow:hidden; white-space:nowrap; }
 .row { display:flex; gap:8px; margin-top:7px; }
 .card { border:1px solid #b9a888; background:#fdfaf1; padding:6px 8px; }
 .lead { flex:1; }
 .lead svg, .feat svg { width:100%; display:block; }
 .lead svg { height:88px; }
-
 .place { font-family: Arial, sans-serif; font-size:9px; font-weight:700;
   letter-spacing:1px; color:#8c2f26; margin-top:5px; }
 .place b { color:#14202b; background:#b3312a; color:#fff; border-radius:50%;
@@ -239,7 +259,10 @@ h1 { text-align:center; font-size:46px; letter-spacing:0.5px; line-height:1.02; 
 .feat h3 { font-size:11.4px; line-height:1.16; margin-top:2px; }
 .lead p { font-size:9.4px; line-height:1.26; margin-top:3px; }
 .feat p { font-size:8.6px; line-height:1.18; margin-top:2px; }
-.src { font-family: Arial, sans-serif; font-size:8px; color:#555f6a; margin-top:3px; letter-spacing:0.6px; }
+.srcrow { display:flex; justify-content:space-between; align-items:center; margin-top:3px; }
+.src { font-family: Arial, sans-serif; font-size:8px; color:#555f6a; letter-spacing:0.4px; }
+.tag { font-family: Arial, sans-serif; font-size:7.6px; font-weight:800; color:#fff;
+  padding:1.5px 5px; letter-spacing:0.8px; }
 .feat { flex:1; }
 .mapbox { width:400px; flex:none; }
 .mapbox .place { margin-top:0; color:#33506e; }
@@ -260,16 +283,20 @@ h1 { text-align:center; font-size:46px; letter-spacing:0.5px; line-height:1.02; 
 # ------------------------------------------------------------------ build
 import worldmap
 
+def tag_html(tag):
+    return f'<span class="tag" style="background:{TAG_COLORS[tag]}">{tag}</span>'
+
 def card_lead(s):
     return (f'<div class="card lead">{LEAD_ARTS[s["n"]](96)}'
             f'<div class="place"><b>{s["n"]}</b>{s["place"]} · {s["cat"]}</div>'
             f'<h3>{s["head"]}</h3><p>{s["body"]}</p>'
-            f'<div class="src">{s["src"]}</div></div>')
+            f'<div class="srcrow"><span class="src">{s["src"]}</span>{tag_html(s["tag"])}</div></div>')
 
 def card_feat(s):
     return (f'<div class="card feat">{FEAT_ARTS[s["n"]](66)}'
             f'<div class="place"><b>{s["n"]}</b>{s["place"]} · {s["cat"]}</div>'
-            f'<h3>{s["head"]}</h3><p>{s["body"]}</p></div>')
+            f'<h3>{s["head"]}</h3><p>{s["body"]}</p>'
+            f'<div class="srcrow"><span class="src">{s["src"]}</span>{tag_html(s["tag"])}</div></div>')
 
 def build():
     counts = {}
@@ -278,6 +305,7 @@ def build():
     for _, rg, _ in BRIEFS:
         counts[rg] = counts.get(rg, 0) + 1
     total = sum(counts.values())
+    nregions = len([1 for c in counts if counts[c]])
     regionbar = "".join(
         f'<div style="background:{color};flex:{counts[code]}">{name} {counts[code]}</div>'
         for code, name, color in REGIONS if counts.get(code))
@@ -293,7 +321,7 @@ def build():
     html = f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>{CSS}</style></head>
 <body>
-<div class="kicker"><span>THE WORLD IN ONE DAY</span><span>{total} STORIES · {len([1 for c in counts if counts[c]])} REGIONS · EVERY ONE REPORTED SATURDAY 21 NOVEMBER 2026</span></div>
+<div class="kicker"><span>THE WORLD IN ONE DAY</span><span>{total} STORIES · {nregions} REGIONS · EVERY ONE DATED SATURDAY 21 NOVEMBER 2026</span></div>
 <h1>Saturday 21 November 2026</h1>
 <div class="subline">Climate summit runs past its deadline · Three missiles shot down over Riyadh · Strong quake shakes Peru</div>
 <div class="nums">{nums}</div>
@@ -303,13 +331,13 @@ def build():
 <div class="row">{feats2}</div>
 <div class="row">
   <div class="mapbox"><div class="place">WHERE IT HAPPENED</div>{worldmap.render_map()}
-  <div class="legend">Each number is the story with that number on this page. Pins sit where the story happened; crowded labels are lifted clear on leader lines.</div></div>
+  <div class="legend">Each number is the story with that number on this page; story 11 (Bitcoin) is worldwide and has no pin. Pins sit where the story happened.</div></div>
   <div class="briefs"><div class="place">ALSO ON SATURDAY 21 NOVEMBER 2026 · {len(BRIEFS)} MORE STORIES</div>
   <div class="briefcols"><div class="briefcol">{col1}</div><div class="briefcol">{col2}</div></div></div>
 </div>
 <div class="footer">
-<div class="datecheck"><b>DATE CHECK</b> · Every story above was reported on Saturday 21 November 2026 in at least one time zone. The Peru quake struck at 00:09 UTC on Saturday and the Riyadh missiles after 2am local time. The Shenzhen leaders met on Thursday; only their declaration, issued Saturday, is printed. Unconfirmed claims are labelled as claims.</div>
-<div class="credit">Drawn and set in one page from Saturday's reporting (AP, Reuters, AFP, BBC, Al Jazeera, USGS, IGP, Indeci, CoinGecko). No photographs: every scene is an original drawing.</div>
+<div class="datecheck"><b>DATE CHECK</b> · Left out as Friday 20 November's news: Wall Street's fall into correction, the barrage that hit Kyiv's bridges, the missiles that landed in Poland, the UK-EU reset deal and Cyclone Akvan's landfall. Older still (Thu 19): the Shenzhen summit and the ICJ's Myanmar ruling; Myanmar's Saturday reaction is brief 32, and Kryvyi Rih's rising toll is brief 14. Not confirmed when drawn, so not shown: a final COP31 text.</div>
+<div class="credit"><b>HOW WE CHECKED</b> · CONFIRMED = 2+ outlets · OFFICIAL = on the record · REPORTED = one outlet · CLAIM = one side's account. Every story here happened, or was first reported, on Saturday 21 November 2026. Original drawings, not photographs.</div>
 </div>
 </body></html>"""
     (HERE / "poster.html").write_text(html, encoding="utf-8")
