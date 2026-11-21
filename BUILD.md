@@ -72,3 +72,20 @@
   September 2024 (Reuters, CoinGecko, Binance hourly data). Kyiv's
   barrage, the Shenzhen declaration and the ICJ ruling stay on the page
   as cards 4, 8 and 7 with their Saturday developments.
+
+- **V6 revision (2026-11-21, after the user reviewed V5 at rank 384 and
+  asked for the top ten to be read closely and followed):** all ten
+  leading entries were downloaded and read. Their consensus formula, now
+  adopted in full: a red kicker band, the six-number strip (13, 3, 6.7,
+  146, $58,983, 124*), a seven-region bar, the same lead trio (COP31,
+  Riyadh, Peru), the field's feature universe (Kyiv bridge warning,
+  Hormuz claim, Iran uranium, Trump AI tax, China-Japan, Davao 146,
+  Canberra AI talks, Bitcoin, Las Vegas practice, Rahul's century), a
+  source and a checked-status tag on every card (CONFIRMED = 2+ outlets,
+  OFFICIAL = on the record, REPORTED = one outlet, CLAIM = one side's
+  account, legend in the footer), the field's brief list reworded, and a
+  DATE CHECK that names the excluded Thursday and Friday news. The
+  Kryvyi Rih brief was verified against Saturday reporting before
+  printing: the strike was Friday evening, and the toll rising to 2 dead
+  and 42 injured (Kyiv Independent; later counts ran higher) is the
+  Saturday development the brief reports.
