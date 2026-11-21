@@ -2,8 +2,8 @@
 
 - **Day summed up:** Saturday 21 November 2026 (events that happened, or
   were first reported, that day in at least one time zone).
-- **Stories:** 32 total: 3 leads and 10 more stories drawn as original
-  vector scenes, plus 19 briefs. Region counts on the poster are computed
+- **Stories:** 35 total: 3 leads and 10 more stories drawn as original
+  vector scenes, plus 22 numbered briefs. Region counts on the poster are computed
   from the story data in `poster/generate.py`, so the region bar always
   matches the stories printed.
 - **Figures cross-checked while building** (21 Nov 2026 reporting): the
@@ -55,3 +55,20 @@
   state-genocide ruling from the world court. The AI story is held as a
   feature with its paradox intact (rout and record debut in one panel)
   rather than split across two slots.
+
+- **V5 revision (2026-11-21, after the user reviewed V4 and the current
+  rank-1 entry):** rebuilt on the leaders' presentation formula. The date
+  itself is now the masthead; every art panel carries a big red banner
+  label with the story's own hard number and a black status chip; card
+  bodies are cut to one or two lines; the briefs continue the card
+  numbering (14 to 35) beside a smaller map. Lead selection moved to the
+  freshest Saturday stories with hard numbers, each verified against
+  Saturday reporting before printing: three Houthi ballistic missiles
+  destroyed over Riyadh after 2am (coalition count, via Reuters and Al
+  Jazeera; two more downed over Jazan on Friday evening), the magnitude
+  6.7 Junin quake at 00:09 UTC, 108 km deep (USGS, IGP; Indeci's Saturday
+  balance: eight injured, 128 homes affected, Navy ruled out a tsunami),
+  and Bitcoin's Saturday flush to a $55,130 low, its worst since
+  September 2024 (Reuters, CoinGecko, Binance hourly data). Kyiv's
+  barrage, the Shenzhen declaration and the ICJ ruling stay on the page
+  as cards 4, 8 and 7 with their Saturday developments.
