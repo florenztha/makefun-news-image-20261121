@@ -61,16 +61,15 @@ LAND = [
     [(167, -45), (171, -42), (174, -39), (176, -38), (174, -41), (172, -43), (169, -46)],
 ]
 
-PINS = {1: (30.5, 50.4), 2: (114.2, 22.5), 3: (4.3, 52.1), 4: (-74.0, 40.7),
-        5: (30.7, 36.9), 6: (4.35, 50.8), 7: (-0.1, 51.5), 8: (13.4, 52.5),
-        9: (56.3, 26.3), 10: (34.3, 31.3), 11: (125.8, 39.8),
-        12: (-41.7, 64.2), 13: (36.6, 45.4)}
+PINS = {1: (30.7, 36.9), 2: (46.7, 24.6), 3: (-75.5, -11.5), 4: (30.5, 50.4),
+        5: (56.3, 26.3), 6: (-74.0, 40.7), 7: (4.3, 52.1), 8: (114.2, 22.5),
+        9: (34.3, 31.3), 10: (125.8, 39.8), 11: (13.4, 52.5),
+        12: (-41.7, 64.2), 13: (-0.1, 51.5)}
 
-# Label positions for the crowded clusters (Europe, the Black Sea and the
-# Levant), in map coordinates; each label is tied by a leader line to a dot
-# at the pin's true position.
-EU_LABELS = {3: (330, 22), 7: (312, 50), 6: (334, 84), 8: (404, 22),
-             13: (452, 78), 10: (455, 106)}
+# Label positions for the crowded clusters (Europe and the Levant), in map
+# coordinates; each label is tied by a leader line to a dot at the pin's
+# true position.
+EU_LABELS = {7: (330, 22), 13: (312, 50), 11: (404, 22), 9: (440, 128)}
 
 
 def _xy(lon, lat):
@@ -81,7 +80,7 @@ def render_map():
     polys = []
     for shape in LAND:
         pts = " ".join(f"{x:.0f},{y:.0f}" for x, y in (_xy(lon, lat) for lon, lat in shape))
-        polys.append(f'<polygon points="{pts}" fill="#7496ae" stroke="#5d7f99" stroke-width="1"/>')
+        polys.append(f'<polygon points="{pts}" fill="#d8c096" stroke="#b39b6d" stroke-width="1"/>')
     parts = []
     for n, (lon, lat) in PINS.items():
         x, y = _xy(lon, lat)
@@ -98,4 +97,4 @@ def render_map():
                 f'<g><circle cx="{x:.0f}" cy="{y:.0f}" r="8.5" fill="#b3312a"{gold}/>'
                 f'<text x="{x:.0f}" y="{y + 3.4:.0f}" font-size="9.5" font-weight="800" fill="#fff" text-anchor="middle">{n}</text></g>')
     return (f'<svg viewBox="0 0 720 252" class="mapsvg">'
-            f'<rect width="720" height="252" fill="#cfdfeb"/>{"".join(polys)}{"".join(parts)}</svg>')
+            f'<rect width="720" height="252" fill="#20394f"/>{"".join(polys)}{"".join(parts)}</svg>')
