@@ -3,8 +3,9 @@
 A one-page poster that sums up the world's news of **Saturday 21 November
 2026** in a single 1024x1024 image: 35 stories, 13 of them drawn as original
 vector scenes with big banner labels and pinned on a numbered world map, a
-key-numbers strip, a region bar computed from the stories printed, and a
-date-check box that keeps Thursday's and Friday's news honestly labelled.
+key-numbers strip, a region bar computed from the stories printed, a source
+and a checked-status tag on every card, and a date-check box that names the
+Thursday and Friday news left out.
 
 Entry for the make.fun bounty
 [news-image-20261121](https://make.fun/bounty/news-image-20261121).
