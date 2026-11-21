@@ -1,8 +1,9 @@
 # Saturday 21 November 2026: The World in One Page
 
 A one-page poster that sums up the world's news of **Saturday 21 November
-2026** in a single 1024x1024 image: 32 stories, 13 of them drawn as original
-vector scenes and pinned on a numbered world map, a key-numbers strip, and a
+2026** in a single 1024x1024 image: 35 stories, 13 of them drawn as original
+vector scenes with big banner labels and pinned on a numbered world map, a
+key-numbers strip, a region bar computed from the stories printed, and a
 date-check box that keeps Thursday's and Friday's news honestly labelled.
 
 Entry for the make.fun bounty
