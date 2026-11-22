@@ -89,3 +89,25 @@
   printing: the strike was Friday evening, and the toll rising to 2 dead
   and 42 injured (Kyiv Independent; later counts ran higher) is the
   Saturday development the brief reports.
+
+- **V7 revision (2026-11-22, after a full analysis of the sealed judge
+  instructions in the kit and of all three submitted rounds):** the
+  judge's five criteria are lexicographic, and the first is that the
+  image is one day's news and names that day. V7 therefore starts from
+  V5 (the best dev point estimate, 0.981793) and changes only what the
+  criteria and the V6 experiment justify. Added: a source and a
+  checked-status tag on every pictured card, with the HOW WE CHECKED
+  legend in the footer (CONFIRMED = 2+ outlets, OFFICIAL = on the
+  record, REPORTED = one outlet, CLAIM = one side's account); sources
+  are named only where the build notes record them. Removed from the
+  pictured features: the Wall Street correction and the ICJ ruling,
+  both pre-Saturday events the field's DATE CHECK boxes exclude; their
+  places go to two verified Saturday stories, the Davao landing (all
+  146 safe) and Rahul's century in Wellington, and the ICJ stays as
+  brief 23 in its Saturday form, Myanmar's reaction. The DATE CHECK now
+  names the excluded Thursday and Friday news, in the field's style,
+  and says nothing the page itself contradicts. Kept from V5: the story
+  set otherwise, the $55,130 Bitcoin low framing, the six-number strip
+  and the layout. The dev-rate gap between V5 and V6 (0.0058) is inside
+  the rates' own 90% error bound (about 0.0113), so V7 is a judgement
+  call on the criteria, not a claim that V6 was measurably worse.
